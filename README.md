@@ -7,3 +7,5 @@ Usage:
 First make sure the directory on line 15 is accurate, then run
 
 >python3 gnote-to-joplin.py
+
+By default, this will place all your exported notes in the export/ directory (it will not touch the original files). You can then import them easily into joplin via MD - Markdown File or Directory.
