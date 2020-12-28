@@ -3,7 +3,7 @@
 #Written by David Faour, December 2020
 #Licensed under GPL 3.0
 #
-#Usage: first set directory path on line 14, then run python3 gnote-to-joplin.py
+#Usage: first verify correct directory path on line 15, then run python3 gnote-to-joplin.py
 
 import os
 import time
