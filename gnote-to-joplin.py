@@ -1,9 +1,9 @@
-#gnote-to-joplin - a tool to export gnote/tomboy notes into a markdown format compatible with joplin
+#gnote-to-joplin - a tool to export gnote/tomboy notes into a markdown format compatible with joplin, while preserving formatting (bulleted lists, bold, italics)
 #
 #Written by David Faour, December 2020
 #Licensed under GPL 3.0
 #
-#Usage: first verify correct directory path on line 15, then run python3 gnote-to-joplin.py
+#Usage: first set directory path on line 15, then run python3 gnote-to-joplin.py
 
 import os
 import time
@@ -80,15 +80,21 @@ def convert(lines):
     
         #For bold
         newline = newline.replace(bold_fr,bold_to)
-        if bold_end_fr in newline:      #this is required for bold and italics because gnote/tomboy puts the </bold> on the next line while joplin expects it on the same line
-            newline = newline.replace(bold_end_fr,"")
-            lines[counter - 1] = lines[counter - 1].strip() + bold_end_to + "\n" 
+        if bold_end_fr in newline:      #this is required for bold and italics because sometimes we have the </bold> on the next line while joplin expects it on the same line
+            if newline[:6] == "</bold": #if the </bold> is at the start of the line put the end ** at the end of the previous line
+                lines[counter - 1] = lines[counter - 1].strip() + bold_end_to + "\n"
+                newline = newline.replace(bold_end_fr,"")
+            else:
+                newline = newline.replace(bold_end_fr,bold_end_to)
 
         #Italic
         newline = newline.replace(italic_fr,italic_to)
-        if italic_end_fr in newline:
-            newline = newline.replace(italic_end_fr,"")
-            lines[counter - 1] = lines[counter - 1].strip() + italic_end_to + "\n"
+        if italic_end_fr in newline:      #see above notes for bold - same applies here
+            if newline[:6] == "</ital": 
+                lines[counter - 1] = lines[counter - 1].strip() + italic_end_to + "\n"
+                newline = newline.replace(italic_end_fr,"")
+            else:
+                newline = newline.replace(italic_end_fr,italic_end_to)
 
         #Ignores:
         for j in ignore:
