@@ -5,7 +5,7 @@ Written by David Faour, December 2020
 Licensed under GPL 3.0
 
 Usage:
-First make sure the directory on line 15 is accurate, then run
+First make sure the directory on line 15 is accurate, as well as the metadata on lines 28-29 (if so desired), then run
 
 >python3 gnote-to-joplin.py
 
