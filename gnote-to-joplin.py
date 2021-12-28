@@ -18,6 +18,10 @@ extension = ".note"
 
 outputdir = "export/"
 outputextension = ".md"
+try:
+    os.mkdir(outputdir)
+except:
+    pass
 
 #Metadata variables - change as needed:
 metadata_on = 1 #switch to 0 to turn off adding old metadata into the end of the note
